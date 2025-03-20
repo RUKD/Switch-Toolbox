@@ -37,6 +37,8 @@ namespace Toolbox.Library
 
             public bool ExportTextures = true;
 
+            public bool ExportAnimations = true;
+
             public string ImageExtension = ".png";
             public string ImageFolder = "";
         }
