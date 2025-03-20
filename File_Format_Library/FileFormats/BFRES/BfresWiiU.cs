@@ -95,14 +95,14 @@ namespace FirstPlugin
             }
             foreach (Shape shp in mdl.Shapes.Values)
             {
-                VertexBuffer vertexBuffer = mdl.VertexBuffers[shp.VertexBufferIndex];
-                Material material = mdl.Materials[shp.MaterialIndex];
-                FSHP mesh = new FSHP();
-                ReadShapesVertices(mesh, shp, vertexBuffer, model);
-                mesh.MaterialIndex = shp.MaterialIndex;
-
-                model.Nodes["FshpFolder"].Nodes.Add(mesh);
-                model.shapes.Add(mesh);
+//                 VertexBuffer vertexBuffer = mdl.VertexBuffers[shp.VertexBufferIndex];
+//                 Material material = mdl.Materials[shp.MaterialIndex];
+//                 FSHP mesh = new FSHP();
+//                 ReadShapesVertices(mesh, shp, vertexBuffer, model);
+//                 mesh.MaterialIndex = shp.MaterialIndex;
+// 
+//                 model.Nodes["FshpFolder"].Nodes.Add(mesh);
+//                 model.shapes.Add(mesh);
             }
         }
 

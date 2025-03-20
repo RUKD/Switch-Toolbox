@@ -1331,7 +1331,8 @@ namespace FirstPlugin
                     if (anim.Data == null) anim.Data = new byte[0];
 
                     // group.AddNode(new ExternalFileData(Name, anim.Data) { FileFormat = file });
-
+                    if(anim.Data == null)
+                        continue;
                     string Name = resFile.ExternalFileDict.GetKey(index++);
 
                     //Bfsha changes versions alot so ignore these for now

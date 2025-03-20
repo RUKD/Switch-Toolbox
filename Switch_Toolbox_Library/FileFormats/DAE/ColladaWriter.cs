@@ -948,6 +948,98 @@ namespace Toolbox.Library.Collada
                 return hashCode;
             }
         }
+
+        public void WriteLibraryAnimations(List<STGenericAnimation> animations)
+        {
+            if (!Settings.ExportAnimations || animations == null || animations.Count == 0)
+                return;
+
+            Writer.WriteStartElement("library_animations");
+            foreach (var anim in animations)
+            {
+                WriteAnimation(anim);
+            }
+            Writer.WriteEndElement();
+        }
+
+        private void WriteAnimation(STGenericAnimation animation)
+        {
+            Writer.WriteStartElement("animation");
+            Writer.WriteAttributeString("id", animation.Name);
+            Writer.WriteAttributeString("name", animation.Name);
+
+            // Write animation source
+            Writer.WriteStartElement("source");
+            Writer.WriteAttributeString("id", $"{animation.Name}_source");
+            
+            // Write input (time)
+            Writer.WriteStartElement("float_array");
+            Writer.WriteAttributeString("id", $"{animation.Name}_input");
+            Writer.WriteAttributeString("count", animation.FrameCount.ToString());
+            Writer.WriteString(string.Join(" ", Enumerable.Range(0, animation.FrameCount).Select(i => (i * animation.FrameRate).ToString("F6"))));
+            Writer.WriteEndElement();
+
+            // Write output (transform values)
+            Writer.WriteStartElement("float_array");
+            Writer.WriteAttributeString("id", $"{animation.Name}_output");
+            Writer.WriteAttributeString("count", (animation.FrameCount * 16).ToString());
+            Writer.WriteString(string.Join(" ", animation.GetTransformValues()));
+            Writer.WriteEndElement();
+
+            // Write technique
+            Writer.WriteStartElement("technique_common");
+            Writer.WriteStartElement("accessor");
+            Writer.WriteAttributeString("source", $"#{animation.Name}_input");
+            Writer.WriteAttributeString("count", animation.FrameCount.ToString());
+            Writer.WriteAttributeString("stride", "1");
+            Writer.WriteStartElement("param");
+            Writer.WriteAttributeString("name", "TIME");
+            Writer.WriteAttributeString("type", "float");
+            Writer.WriteEndElement();
+            Writer.WriteEndElement();
+
+            Writer.WriteStartElement("accessor");
+            Writer.WriteAttributeString("source", $"#{animation.Name}_output");
+            Writer.WriteAttributeString("count", animation.FrameCount.ToString());
+            Writer.WriteAttributeString("stride", "16");
+            for (int i = 0; i < 16; i++)
+            {
+                Writer.WriteStartElement("param");
+                Writer.WriteAttributeString("name", $"TRANSFORM{i}");
+                Writer.WriteAttributeString("type", "float");
+                Writer.WriteEndElement();
+            }
+            Writer.WriteEndElement();
+            Writer.WriteEndElement();
+            Writer.WriteEndElement();
+
+            // Write sampler
+            Writer.WriteStartElement("sampler");
+            Writer.WriteAttributeString("id", $"{animation.Name}_sampler");
+            
+            Writer.WriteStartElement("input");
+            Writer.WriteAttributeString("semantic", "INPUT");
+            Writer.WriteAttributeString("source", $"#{animation.Name}_input");
+            Writer.WriteEndElement();
+
+            Writer.WriteStartElement("input");
+            Writer.WriteAttributeString("semantic", "OUTPUT");
+            Writer.WriteAttributeString("source", $"#{animation.Name}_output");
+            Writer.WriteEndElement();
+
+            Writer.WriteStartElement("input");
+            Writer.WriteAttributeString("semantic", "INTERPOLATION");
+            Writer.WriteAttributeString("source", $"#{animation.Name}_interpolation");
+            Writer.WriteEndElement();
+            Writer.WriteEndElement();
+
+            // Write channel
+            Writer.WriteStartElement("channel");
+            Writer.WriteAttributeString("source", $"#{animation.Name}_sampler");
+            Writer.WriteAttributeString("target", $"{animation.BoneName}/transform");
+            Writer.WriteEndElement();
+            Writer.WriteEndElement();
+        }
     }
 
     public class Material

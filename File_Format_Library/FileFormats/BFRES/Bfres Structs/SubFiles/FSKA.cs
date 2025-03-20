@@ -333,7 +333,20 @@ namespace Bfres.Structs
                     UpdateAnimation(ska);
                 }
                 else
-                     STErrorDialog.Show("No matching skeleton bones found to assign!", "Skeleton Importer", "");
+                {
+                    var ska = FromGeneric(SMD.Read(FileName, skeleton));
+                    if(ska != null)
+                    {
+                        ska.Loop = this.CanLoop;
+                        UpdateAnimation(ska);
+                    }
+                    else
+                    {
+                        STErrorDialog.Show("No matching skeleton bones found to assign!", "Skeleton Importer", "");
+                    }
+                    
+                }
+                     
             }
             else if (ext == ".chr0")
             {

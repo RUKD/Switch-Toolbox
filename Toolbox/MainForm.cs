@@ -53,6 +53,7 @@ namespace Toolbox
         public MainForm()
         {
             InitializeComponent();
+            this.AllowDrop = true;  // 允许窗体接收拖放
         }
 
         public void UpdateForm()
@@ -983,6 +984,29 @@ namespace Toolbox
             GC.WaitForPendingFinalizers();
         }
 
+        private void clearAllFilesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("确定要清空所有打开的文件吗？", "确认", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                // 关闭所有子窗口
+                foreach (Form frm in this.MdiChildren) frm.Close();
+
+                // 清空标签页
+                tabForms.TabPages.Clear();
+                tabForms.Visible = false;
+
+                // 重置菜单
+                ResetMenus();
+
+                // 清理资源
+                RenderTools.DisposeTextures();
+
+                // 强制垃圾回收
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+        }
+
         private void OnMdiWindowClosed()
         {
             BtnMdiClose.Visible = false;
@@ -1029,7 +1053,7 @@ namespace Toolbox
 
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
-                        if (!Runtime.EnableDragDrop) return;
+            if (!Runtime.EnableDragDrop) return;
 
             Cursor.Current = Cursors.WaitCursor;
 

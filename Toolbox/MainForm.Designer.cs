@@ -39,6 +39,7 @@
             this.recentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearAllFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -122,6 +123,7 @@
             this.saveToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.openUserFolderToolStripMenuItem,
+            this.clearAllFilesToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 21);
@@ -174,6 +176,13 @@
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
+            // 
+            // clearAllFilesToolStripMenuItem
+            // 
+            this.clearAllFilesToolStripMenuItem.Name = "clearAllFilesToolStripMenuItem";
+            this.clearAllFilesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearAllFilesToolStripMenuItem.Text = "Clear All Files";
+            this.clearAllFilesToolStripMenuItem.Click += new System.EventHandler(this.clearAllFilesToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -258,13 +267,7 @@
             this.batchRenameBNTXToolStripMenuItem.Text = "Batch Rename BNTX from Filename";
             this.batchRenameBNTXToolStripMenuItem.Click += new System.EventHandler(this.batchRenameBNTXToolStripMenuItem_Click);
             // 
-            // experimentalToolStripMenuItem
-            // 
-            this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
-            this.experimentalToolStripMenuItem.Size = new System.Drawing.Size(88, 21);
-            this.experimentalToolStripMenuItem.Text = "Experimental";
-            // 
-            // windowsToolStripMenuItem
+            
             // 
             this.windowsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cascadeToolStripMenuItem,
@@ -510,7 +513,7 @@
             this.saveToolStripButton.Enabled = false;
             this.saveToolStripButton.Image = global::Toolbox.Properties.Resources.Save;
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripButton.Name = "saveToolStripButton";
+            this.saveToolStripButton.Name = "saveToolStripButton1";
             this.saveToolStripButton.Size = new System.Drawing.Size(23, 21);
             this.saveToolStripButton.Text = "saveToolStripButton1";
             this.saveToolStripButton.ToolTipText = "Save File";
@@ -522,7 +525,7 @@
             this.updateToolstrip.Enabled = false;
             this.updateToolstrip.Image = global::Toolbox.Properties.Resources.UpdateIcon;
             this.updateToolstrip.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.updateToolstrip.Name = "updateToolstrip";
+            this.updateToolstrip.Name = "toolStripButton1";
             this.updateToolstrip.Size = new System.Drawing.Size(23, 21);
             this.updateToolstrip.Text = "toolStripButton1";
             this.updateToolstrip.ToolTipText = "Update Tool";
@@ -622,5 +625,7 @@
         private System.Windows.Forms.ToolStripMenuItem batchRenameBNTXToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openUserFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearAllFilesToolStripMenuItem;
     }
 }
+
