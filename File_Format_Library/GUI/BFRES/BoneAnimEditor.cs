@@ -25,6 +25,8 @@ namespace FirstPlugin.Forms
 
             listViewCustom2.BackColor = FormThemes.BaseTheme.FormBackColor;
             listViewCustom2.ForeColor = FormThemes.BaseTheme.FormForeColor;
+
+            InitializeListView();
         }
 
         public List<KeyFrame> keyFrames = new List<KeyFrame>();
@@ -44,8 +46,6 @@ namespace FirstPlugin.Forms
             frameCountLbl.Text = $" / {fska.FrameCount}";
             currentFrameUD.Maximum = fska.FrameCount;
 
-            return;
-
             fska.SetFrame(0);
             for (int frame = 0; frame < fska.FrameCount; frame++)
             {
@@ -64,9 +64,9 @@ namespace FirstPlugin.Forms
                     key.PosY = pos.Y;
                     key.PosZ = pos.Z;
 
-                    key.PosX = rot.X;
-                    key.PosY = rot.Y;
-                    key.PosZ = rot.Z;
+                    key.RotX = rot.X;
+                    key.RotY = rot.Y;
+                    key.RotZ = rot.Z;
                     key.RotW = rot.W;
 
                     key.ScaX = sca.X;
@@ -150,6 +150,28 @@ namespace FirstPlugin.Forms
         private void LoadData(KeyFrame keyFrame)
         {
 
+        }
+
+        private void InitializeListView()
+        {
+            listViewCustom2.View = View.Details;
+            
+            listViewCustom2.Columns.Clear();
+            
+            listViewCustom2.Columns.Add("Frame", 60);
+            
+            listViewCustom2.Columns.Add("Scale X", 80);
+            listViewCustom2.Columns.Add("Scale Y", 80);
+            listViewCustom2.Columns.Add("Scale Z", 80);
+            
+            listViewCustom2.Columns.Add("Rot X", 80);
+            listViewCustom2.Columns.Add("Rot Y", 80);
+            listViewCustom2.Columns.Add("Rot Z", 80);
+            listViewCustom2.Columns.Add("Rot W", 80);
+            
+            listViewCustom2.Columns.Add("Pos X", 80);
+            listViewCustom2.Columns.Add("Pos Y", 80);
+            listViewCustom2.Columns.Add("Pos Z", 80);
         }
     }
 }
