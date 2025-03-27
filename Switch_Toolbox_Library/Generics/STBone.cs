@@ -55,6 +55,13 @@ namespace Toolbox.Library
             }
         }
 
+        public bool HasPosX = false;
+        public bool HasPosY = false;
+        public bool HasPosZ = false;
+
+        public bool HasRot = false;
+        public bool HasScale = false;
+
         /// <summary>
         /// Gets or sets the position of the bone in world space.
         /// </summary>
@@ -99,6 +106,8 @@ namespace Toolbox.Library
                     rotation.W = 1;
             }
         }
+
+
 
         public Vector3 pos = Vector3.Zero, sca = new Vector3(1f, 1f, 1f);
         public Quaternion rot = Quaternion.Identity;

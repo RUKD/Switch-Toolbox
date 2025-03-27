@@ -476,6 +476,13 @@ namespace Toolbox.Library.Animations
 
                 Updated = true;
 
+                b.HasPosX = node.XPOS.HasAnimation();
+                b.HasPosY = node.YPOS.HasAnimation();
+                b.HasPosZ = node.ZPOS.HasAnimation();
+
+                b.HasRot = node.XROT.HasAnimation() || node.YROT.HasAnimation() || node.ZROT.HasAnimation();
+                b.HasScale = node.XSCA.HasAnimation() || node.YSCA.HasAnimation() || node.ZSCA.HasAnimation();
+
                 if (node.XPOS.HasAnimation())
                     b.pos.X = node.XPOS.GetValue(Frame);
                 if (node.YPOS.HasAnimation())

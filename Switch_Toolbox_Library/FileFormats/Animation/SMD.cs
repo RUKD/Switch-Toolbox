@@ -320,7 +320,14 @@ namespace Toolbox.Library.Animations
                         Vector3 scale = b.GetScale();
                         Vector3 translate = b.GetPosition();
 
-                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {translate.X} {translate.Y} {translate.Z} {eul.X} {eul.Y} {eul.Z}");
+                        object tx = b.HasPosX ? (object)translate.X : "None";
+                        object ty = b.HasPosY ? (object)translate.Y : "None";
+                        object tz = b.HasPosZ ? (object)translate.Z : "None";
+                        object rx = b.HasRot ? (object)eul.X : "None";
+                        object ry = b.HasRot ? (object)eul.Y : "None";
+                        object rz = b.HasRot ? (object)eul.Z : "None";
+
+                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {tx} {ty} {tz} {rx} {ry} {rz}");
                     }
 
                 }
@@ -361,7 +368,15 @@ namespace Toolbox.Library.Animations
                         Vector3 scale = b.GetScale();
                         Vector3 translate = b.GetPosition();
 
-                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {translate.X} {translate.Y} {translate.Z} {eul.X} {eul.Y} {eul.Z}");
+                        //write none for each data component if no animation
+                        object tx = b.HasPosX ? (object)translate.X : "None";
+                        object ty = b.HasPosY ? (object)translate.Y : "None";
+                        object tz = b.HasPosZ ? (object)translate.Z : "None";
+                        object rx = b.HasRot ? (object)eul.X : "None";
+                        object ry = b.HasRot ? (object)eul.Y : "None";
+                        object rz = b.HasRot ? (object)eul.Z : "None";
+
+                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {tx} {ty} {tz} {rx} {ry} {rz}");
                     }
 
                 }

@@ -60,6 +60,17 @@ namespace FirstPlugin.Forms
                     var rot = boneAnim.GetRotation(frame);
                     Vector3 sca = boneAnim.GetScale(frame);
 
+                    key.HasPosX = boneAnim.XPOS.HasAnimation();
+                    key.HasPosY = boneAnim.YPOS.HasAnimation();
+                    key.HasPosZ = boneAnim.ZPOS.HasAnimation();
+
+                    key.HasRot = boneAnim.XROT.HasAnimation() || boneAnim.YROT.HasAnimation() || boneAnim.ZROT.HasAnimation() || boneAnim.WROT.HasAnimation();
+
+                    key.HasScaleX = boneAnim.XSCA.HasAnimation();
+                    key.HasScaleY = boneAnim.YSCA.HasAnimation();
+                    key.HasScaleZ = boneAnim.ZSCA.HasAnimation();
+                    
+
                     key.PosX = pos.X;
                     key.PosY = pos.Y;
                     key.PosZ = pos.Z;
@@ -76,16 +87,18 @@ namespace FirstPlugin.Forms
                     listViewCustom2.Items.Add(key.Frame.ToString()).SubItems.AddRange(
                         new ListViewItem.ListViewSubItem[]
                         {
-                             new ListViewItem.ListViewSubItem() { Text = key.ScaX.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.ScaY.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.ScaZ.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.RotX.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.RotY.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.RotZ.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.RotW.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.PosX.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.PosY.ToString() },
-                             new ListViewItem.ListViewSubItem() { Text = key.PosZ.ToString() },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasScaleX ? key.ScaX.ToString() : "None" },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasScaleY ? key.ScaY.ToString() : "None" },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasScaleZ ? key.ScaZ.ToString() : "None" },
+                             
+                             new ListViewItem.ListViewSubItem() { Text = key.HasRot ? key.RotX.ToString() : "None" },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasRot ? key.RotY.ToString() : "None" },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasRot ? key.RotZ.ToString() : "None" },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasRot ? key.RotW.ToString() : "None" },
+                             
+                             new ListViewItem.ListViewSubItem() { Text = key.HasPosX ? key.PosX.ToString() : "None" },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasPosY ? key.PosY.ToString() : "None" },
+                             new ListViewItem.ListViewSubItem() { Text = key.HasPosZ ? key.PosZ.ToString() : "None" },
                         });
                 }
             }
@@ -97,6 +110,16 @@ namespace FirstPlugin.Forms
         {
 
             public int Frame { get; set; }
+
+            public bool HasPosX { get; set; }
+            public bool HasPosY { get; set; }
+            public bool HasPosZ { get; set; }
+
+            public bool HasRot { get; set; }
+
+            public bool HasScaleX { get; set; }
+            public bool HasScaleY { get; set; }
+            public bool HasScaleZ { get; set; }
 
             public float PosX { get; set; }
             public float PosY { get; set; }
