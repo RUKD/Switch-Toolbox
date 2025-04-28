@@ -410,7 +410,7 @@ namespace Toolbox.Library
                             if (b > mesh.VertexSkinCount - 1)
                                 continue;
 
-                            //Skip 0 weights
+                            //not Skip 0 weights,just set current bone index weight to 1
                             if (vertex.boneWeights.Count > b) {
                                 if (vertex.boneWeights[b] == 0)
                                     continue;

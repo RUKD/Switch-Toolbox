@@ -1576,6 +1576,48 @@ namespace Toolbox
 
         private List<string> failedFiles = new List<string>();
         private List<string> batchExportFileList = new List<string>();
+
+        private void BatchExportAC(string[] files, string outputFolder)
+        {
+            List<string> Formats = new List<string>();
+            Formats.Add("DAE (.dae)");
+
+            failedFiles = new List<string>();
+
+            BatchFormatExport form = new BatchFormatExport(Formats);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                string extension = form.GetSelectedExtension();
+                foreach (var file in files)
+                {
+                    IFileFormat fileFormat = null;
+                    try
+                    {
+                        fileFormat = STFileLoader.OpenFileFormat(file);
+                    }
+                    catch (Exception ex)
+                    {
+                        failedFiles.Add($"{file} \n Error:\n {ex} \n");
+                    }
+
+                    SearchFileFormat(form.BatchSettings, fileFormat, extension, outputFolder, ExportMode.AC);
+                }
+                batchExportFileList.Clear();
+            }
+            else
+                return;
+
+            if (failedFiles.Count > 0)
+            {
+                string detailList = "";
+                foreach (var file in failedFiles)
+                    detailList += $"{file}\n";
+
+                STErrorDialog.Show("Some files failed to export! See detail list of failed files.", "Switch Toolbox", detailList);
+            }
+            else
+                MessageBox.Show("Files batched successfully!");
+        }
         private void BatchExportModels(string[] files, string outputFolder)
         {
             List<string> Formats = new List<string>();
@@ -1737,6 +1779,64 @@ namespace Toolbox
                 batchExportFileList.Add(path);
 
                 DAE.Export($"{path}.{extension}", daesettings, model, textures, skeleton);
+            }else if( (fileFormat is ITextureContainer || fileFormat is IExportableModel) && exportMode == ExportMode.AC)
+            {
+                string name = fileFormat.FileName.Split('.').FirstOrDefault();
+                if (settings.SeperateTextureContainers)
+                    outputFolder = Path.Combine(outputFolder, name);
+
+                var textures = ((IExportableModelContainer)fileFormat).ExportableTextures.ToList();
+                var models = ((IExportableModelContainer)fileFormat).ExportableModels.ToList();
+                var animations = ((IExportableModelContainer)fileFormat).ExportableAnimations.ToList();
+
+                if (!Directory.Exists(outputFolder))
+                    Directory.CreateDirectory(outputFolder);
+
+                DAE.ExportSettings daesettings = new DAE.ExportSettings();
+                daesettings.SuppressConfirmDialog = true;
+                daesettings.ExportTextures = settings.ExportTextures;
+
+ 
+                if (models.Count > 0)
+                {
+                    STSkeleton skeleton = null;
+                    foreach (var model in ((IExportableModelContainer)fileFormat).ExportableModels)
+                    {
+                        string path = $"{outputFolder}/{model.Text}";
+                        path = Utils.RenameDuplicateString(batchExportFileList, path, 0, 3);
+
+                        skeleton = model.GenericSkeleton;
+                        DAE.Export($"{path}.{extension}", daesettings, model, textures, skeleton);
+                        batchExportFileList.Add(path);
+
+
+                        // foreach (TreeNode node in model.Nodes)
+                        // {
+                        //     if (node is STGenericWrapper)
+                        //     {
+                        //         ((STGenericWrapper)node).Export($"{outputFolder}/{node.Text}.smd");
+                        //     }
+                        // }
+                    }
+
+                    //TODO: temp use the last skeleton 
+                    if(animations.Count > 0)
+                    {
+                        //log every animation name
+                        foreach (var animation in animations)
+                        {
+                            ((STGenericWrapper)animation).Export($"{outputFolder}/{animation.Text}.smd");
+                        } 
+                        
+                    }
+                }else
+                {   
+                    //export textures only
+                    foreach (STGenericTexture tex in ((ITextureContainer)fileFormat).TextureList) {
+                        ExportTexture(tex, settings, $"{outputFolder}/{tex.Text}", "png");
+                    }
+                }
+                
             }
 
             fileFormat.Unload();
@@ -1746,7 +1846,9 @@ namespace Toolbox
         {
             Models,
             Textures,
+            AC, //contain models textures and animations
         }
+
 
         private void ExportTexture(STGenericTexture tex, BatchFormatExport.Settings settings, string filePath, string ext) {
             filePath = Utils.RenameDuplicateString(batchExportFileList, filePath, 0, 3);
@@ -1792,6 +1894,23 @@ namespace Toolbox
                 Directory.CreateDirectory(userDir);
 
             Process.Start("explorer.exe", userDir);
+        }
+
+        private void batchExportACToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = true;
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                FolderSelectDialog folderDlg = new FolderSelectDialog();
+                if (folderDlg.ShowDialog() == DialogResult.OK)
+                {
+                    BatchExportAC(ofd.FileNames, folderDlg.SelectedPath);
+                }
+            }
+            // TODO: 在这里实现批量导出AC的功能
+            MessageBox.Show("Batch Export AC功能即将推出");
         }
     }
 }

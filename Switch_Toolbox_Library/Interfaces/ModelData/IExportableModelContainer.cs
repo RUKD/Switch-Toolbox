@@ -10,5 +10,7 @@ namespace Toolbox.Library
     {
         IEnumerable<STGenericModel> ExportableModels { get; }
         IEnumerable<STGenericTexture> ExportableTextures { get; }
+
+        IEnumerable<Animations.Animation> ExportableAnimations { get; }
     }
 }

@@ -126,11 +126,13 @@ namespace FirstPlugin
                 }
 
                 PokemonLoaderSwShForm form = new PokemonLoaderSwShForm();
-                if (form.ShowDialog() == DialogResult.OK) {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
                     if (form.SelectedPokemon != string.Empty)
                     {
                         string path = $"{Runtime.PkSwShGamePath}/bin/archive/pokemon/{form.SelectedPokemon}";
-                        if (System.IO.File.Exists(path)) {
+                        if (System.IO.File.Exists(path))
+                        {
                             var file = STFileLoader.OpenFileFormat(path);
 
                             var currentForm = Runtime.MainForm.ActiveMdiChild;
@@ -164,7 +166,8 @@ namespace FirstPlugin
                     SMO_Scene.LoadStage(sceneSelect.SelectedFile);
             }
 
-            private void GenerateProbeLightBounds(object sender, EventArgs args) {
+            private void GenerateProbeLightBounds(object sender, EventArgs args)
+            {
                 AAMP.GenerateProbeBoundings();
             }
 
@@ -299,7 +302,7 @@ namespace FirstPlugin
 
                 if (MainCostume == null && bfresFiles.Count > 0)
                     MainCostume = bfresFiles[0];
-            
+
                 foreach (var bfres in bfresFiles)
                 {
                     editor.AddNode(bfres);
@@ -323,6 +326,7 @@ namespace FirstPlugin
                 bfresEditor.DisplayAllDDrawables();
             }
         }
+
 
         private Type[] LoadMenus()
         {

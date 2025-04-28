@@ -61,12 +61,20 @@ namespace FirstPlugin
             set { }
         }
 
+        public List<Animation> AnimationList
+        {
+            get { return GetAnimations(); }
+            set { }
+        }
+
         public IEnumerable<STGenericModel> ExportableModels
         {
             get { return BFRESRender.models; }
         }
 
         public IEnumerable<STGenericTexture> ExportableTextures => TextureList;
+
+        public IEnumerable<Animation> ExportableAnimations => AnimationList;
 
         public override string ExportFilter => Utils.GetAllFilters(this);
 
@@ -1007,6 +1015,27 @@ namespace FirstPlugin
             }
 
             return textures;
+        }
+
+        public List<Animation> GetAnimations()
+        {
+            List<Animation> animations = new List<Animation>();
+            foreach (TreeNode folder in Nodes)
+            {
+                if (folder is BFRESAnimFolder )
+                {
+                    foreach (TreeNode subfolder in folder.Nodes)
+                    {
+                        if (subfolder is BFRESGroupNode && ((BFRESGroupNode)subfolder).Type == BRESGroupType.SkeletalAnim)
+                        {
+                            foreach (Animation node in subfolder.Nodes)
+                                animations.Add((Animation)node);
+                        }
+                    }
+
+                }
+            }
+            return animations;
         }
 
         public ResFile resFile = null;
