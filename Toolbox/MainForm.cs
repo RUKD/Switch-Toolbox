@@ -22,6 +22,8 @@ using Syroot.NintenTools.NSW.Bntx;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using FirstPlugin;
 
+using static Toolbox.Library.DAE;
+
 namespace Toolbox
 {
     public partial class MainForm : Form, IMdiContainer, IUpdateForm, IMainForm
@@ -1809,14 +1811,6 @@ namespace Toolbox
                         DAE.Export($"{path}.{extension}", daesettings, model, textures, skeleton);
                         batchExportFileList.Add(path);
 
-
-                        // foreach (TreeNode node in model.Nodes)
-                        // {
-                        //     if (node is STGenericWrapper)
-                        //     {
-                        //         ((STGenericWrapper)node).Export($"{outputFolder}/{node.Text}.smd");
-                        //     }
-                        // }
                     }
 
                     //TODO: temp use the last skeleton 

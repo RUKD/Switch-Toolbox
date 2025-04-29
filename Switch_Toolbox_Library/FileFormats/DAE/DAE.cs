@@ -12,6 +12,9 @@ using OpenTK;
 using Toolbox.Library.Rendering;
 using Toolbox.Library.Collada;
 using Toolbox.Library.IO;
+using Newtonsoft.Json;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Toolbox.Library
 {
@@ -57,9 +60,35 @@ namespace Toolbox.Library
                 new List<STGenericMaterial>(), new List<STGenericTexture>());
         }
 
+        public class MatInfo
+        {
+            public List<STGenericRenderInfo> RenderInfos;
+        }
+
+        static private void ExportMaterialInfo(STGenericMaterial material, string outputFolder)
+        {
+            string materialInfoJsonPath = Path.Combine(outputFolder, $"{material.Text}_info.json");
+            using (StreamWriter writer = new StreamWriter(materialInfoJsonPath))
+            {
+                MatInfo matinfo = new MatInfo();
+                matinfo.RenderInfos = material.GetRenderInfo();
+
+                string json = JsonConvert.SerializeObject(matinfo);
+                writer.Write(json);
+            }
+        }
+
         public static void Export(string FileName, ExportSettings settings, STGenericModel model, List<STGenericTexture> Textures, STSkeleton skeleton = null, List<int> NodeArray = null)
         {
             Export(FileName, settings, model.Objects.ToList(), model.Materials.ToList(), Textures, skeleton, NodeArray);
+
+            string outputFolder = Path.GetDirectoryName(FileName);
+
+            //export material info
+            foreach (var material in model.Materials)
+            {
+                ExportMaterialInfo(material, outputFolder);
+            }
         }
 
         public static void Export(string FileName, ExportSettings settings,
@@ -206,6 +235,7 @@ namespace Toolbox.Library
                             material.Textures.Add(texMap);
                         }
                     }
+                    
 
                     writer.WriteLibraryImages(textureNames.ToArray());
 

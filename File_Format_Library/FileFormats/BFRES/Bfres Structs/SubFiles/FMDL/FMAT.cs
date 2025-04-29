@@ -466,6 +466,22 @@ namespace Bfres.Structs
 
         public ShaderAssign shaderassign = new ShaderAssign();
 
+        override public List<STGenericRenderInfo> GetRenderInfo()
+        {
+            var list = new List<STGenericRenderInfo>();
+            //fill list with renderinfo
+            foreach(var r in renderinfo)
+            {
+                string name = r.Name;
+                string value = r.GetValueString();
+                STGenericRenderInfo info = new STGenericRenderInfo();
+                info.Name = name;
+                info.Value = value;
+                list.Add(info);
+            }
+            return list;
+        }
+
         public class ShaderAssign
         {
             public string ShaderModel = "";
@@ -706,6 +722,25 @@ namespace Bfres.Structs
         public ResU.RenderInfoType SetTypeWiiU(RenderInfoType type)
         {
             return (ResU.RenderInfoType)System.Enum.Parse(typeof(ResU.RenderInfoType), type.ToString());
+        }
+
+        //value string
+        public string GetValueString()
+        {
+            string valueString = "";
+            switch (Type)
+            {
+                case RenderInfoType.Int32:
+                    valueString = string.Join(",", ValueInt.Select(i => i.ToString()).ToArray());
+                    break;
+                case RenderInfoType.String:
+                    valueString = string.Join(",", ValueString.Select(s => s.ToString()).ToArray());
+                    break;
+                case RenderInfoType.Single:
+                    valueString = string.Join(",", ValueFloat.Select(f => f.ToString()).ToArray());
+                    break;
+            }
+            return valueString;
         }
 
     }
