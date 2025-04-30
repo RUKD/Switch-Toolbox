@@ -1903,8 +1903,6 @@ namespace Toolbox
                     BatchExportAC(ofd.FileNames, folderDlg.SelectedPath);
                 }
             }
-            // TODO: 在这里实现批量导出AC的功能
-            MessageBox.Show("Batch Export AC功能即将推出");
         }
     }
 }

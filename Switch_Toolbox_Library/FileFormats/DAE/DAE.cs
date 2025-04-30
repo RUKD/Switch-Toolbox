@@ -62,7 +62,7 @@ namespace Toolbox.Library
 
         public class MatInfo
         {
-            public List<STGenericRenderInfo> RenderInfos;
+            public Dictionary<string, string> RenderInfos =new Dictionary<string, string>();
         }
 
         static private void ExportMaterialInfo(STGenericMaterial material, string outputFolder)
@@ -71,17 +71,19 @@ namespace Toolbox.Library
             using (StreamWriter writer = new StreamWriter(materialInfoJsonPath))
             {
                 MatInfo matinfo = new MatInfo();
-                matinfo.RenderInfos = material.GetRenderInfo();
+                var renderInfos = material.GetRenderInfo();
+                foreach (var renderInfo in renderInfos)
+                {
+                    matinfo.RenderInfos[renderInfo.Name] = renderInfo.Value;
+                }
 
-                string json = JsonConvert.SerializeObject(matinfo);
+                string json = JsonConvert.SerializeObject(matinfo, Newtonsoft.Json.Formatting.Indented);
                 writer.Write(json);
             }
         }
 
         public static void Export(string FileName, ExportSettings settings, STGenericModel model, List<STGenericTexture> Textures, STSkeleton skeleton = null, List<int> NodeArray = null)
         {
-            Export(FileName, settings, model.Objects.ToList(), model.Materials.ToList(), Textures, skeleton, NodeArray);
-
             string outputFolder = Path.GetDirectoryName(FileName);
 
             //export material info
@@ -89,6 +91,10 @@ namespace Toolbox.Library
             {
                 ExportMaterialInfo(material, outputFolder);
             }
+
+            Export(FileName, settings, model.Objects.ToList(), model.Materials.ToList(), Textures, skeleton, NodeArray);
+
+
         }
 
         public static void Export(string FileName, ExportSettings settings,
@@ -463,7 +469,7 @@ namespace Toolbox.Library
                         }
                         //Rigid bodies with no direct bone indices
                         if (bIndices.Count == 0 && mesh.BoneIndex != -1) {
-                            HasBoneIds = true;
+//                            HasBoneIds = true;
                             bIndices.Add(mesh.BoneIndex);
                             bWeights.Add(1);
                         }
