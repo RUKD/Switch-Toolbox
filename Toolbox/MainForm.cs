@@ -21,6 +21,7 @@ using Bfres.Structs;
 using Syroot.NintenTools.NSW.Bntx;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using FirstPlugin;
+using Toolbox.Forms;
 
 using static Toolbox.Library.DAE;
 
@@ -1966,8 +1967,16 @@ namespace Toolbox
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
+                        // 创建进度条窗体
+                        ProgressForm progressForm = new ProgressForm();
+                        progressForm.TotalSteps = sourceSubdirectories.Count;
+                        progressForm.Show();
+
                         for (int i = 0; i < sourceSubdirectories.Count; ++i)
                         {
+                            // 更新进度条
+                            progressForm.UpdateProgress(i + 1, $"正在处理: {Path.GetFileName(sourceSubdirectories[i])}");
+                            
                             string[] filesInSubdirectory = Directory.GetFiles(sourceSubdirectories[i]);
                             if (!Directory.Exists(targetSubdirectories[i]))
                             {
@@ -1976,19 +1985,21 @@ namespace Toolbox
 
                             BatchExportACWithSettings(filesInSubdirectory, targetSubdirectories[i],form.BatchSettings,form.GetSelectedExtension());
                         }
+
+                        string totalTime = progressForm.GetTotalTime();
+                        progressForm.Close();
+
+                        if (failedFiles.Count > 0)
+                        {
+                            string detailList = "";
+                            foreach (var file in failedFiles)
+                                detailList += $"{file}\n";
+
+                            STErrorDialog.Show($"处理完成，总用时: {totalTime}\n部分文件导出失败！请查看详细列表。", "Switch Toolbox", detailList);
+                        }
+                        else
+                            MessageBox.Show($"处理完成，总用时: {totalTime}", "Switch Toolbox");
                     }
-
-                    if (failedFiles.Count > 0)
-                    {
-                        string detailList = "";
-                        foreach (var file in failedFiles)
-                            detailList += $"{file}\n";
-
-                        STErrorDialog.Show("Some files failed to export! See detail list of failed files.", "Switch Toolbox", detailList);
-                    }
-                    else
-                        MessageBox.Show("Files batched successfully!");
-
                 }
             }
         }
