@@ -63,6 +63,7 @@ namespace Toolbox.Library
         public class MatInfo
         {
             public Dictionary<string, string> RenderInfos =new Dictionary<string, string>();
+            public STGenericShaderAssign ShaderAssign = null;
         }
 
         static private void ExportMaterialInfo(STGenericMaterial material, string outputFolder)
@@ -72,6 +73,7 @@ namespace Toolbox.Library
             {
                 MatInfo matinfo = new MatInfo();
                 var renderInfos = material.GetRenderInfo();
+                matinfo.ShaderAssign = material.GetShaderAssign();
                 foreach (var renderInfo in renderInfos)
                 {
                     matinfo.RenderInfos[renderInfo.Name] = renderInfo.Value;
@@ -719,6 +721,72 @@ namespace Toolbox.Library
                 objects.Add(mesh);
             }
             return objects;
+        }
+
+        public static void BatchExportAC(string srcFolder, string targetFolder)
+        {
+            // 确保目标目录存在
+            if (!Directory.Exists(targetFolder))
+                Directory.CreateDirectory(targetFolder);
+
+            // 获取源目录下的所有子目录
+            string[] subDirectories = Directory.GetDirectories(srcFolder, "*", SearchOption.AllDirectories);
+
+            // 在目标目录中创建相同的目录结构
+            foreach (string subDir in subDirectories)
+            {
+                string relativePath = subDir.Substring(srcFolder.Length).TrimStart(Path.DirectorySeparatorChar);
+                string targetSubDir = Path.Combine(targetFolder, relativePath);
+                if (!Directory.Exists(targetSubDir))
+                    Directory.CreateDirectory(targetSubDir);
+            }
+
+            // 处理每个目录中的文件
+            foreach (string subDir in subDirectories)
+            {
+                string relativePath = subDir.Substring(srcFolder.Length).TrimStart(Path.DirectorySeparatorChar);
+                string targetSubDir = Path.Combine(targetFolder, relativePath);
+
+                // 获取当前目录下的所有文件
+                string[] files = Directory.GetFiles(subDir);
+                foreach (string file in files)
+                {
+                    try
+                    {
+                        // 获取文件名（不含扩展名）
+                        string fileName = Path.GetFileNameWithoutExtension(file);
+                        // 在目标目录中创建对应的输出文件路径
+                        string outputFile = Path.Combine(targetSubDir, fileName + ".dae");
+
+                        // 这里需要根据你的实际需求来调用相应的导出方法
+                        // 例如：
+                        // Export(outputFile, settings, model, textures, skeleton);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"处理文件 {file} 时出错: {ex.Message}");
+                    }
+                }
+            }
+
+            // 处理根目录下的文件
+            string[] rootFiles = Directory.GetFiles(srcFolder);
+            foreach (string file in rootFiles)
+            {
+                try
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(file);
+                    string outputFile = Path.Combine(targetFolder, fileName + ".dae");
+                    
+                    // 这里需要根据你的实际需求来调用相应的导出方法
+                    // 例如：
+                    // Export(outputFile, settings, model, textures, skeleton);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"处理文件 {file} 时出错: {ex.Message}");
+                }
+            }
         }
     }
 }

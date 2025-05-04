@@ -12,6 +12,16 @@ namespace Toolbox.Library
         public string Name { get; set;}
         public string Value{get;set;}
     }
+
+    public class STGenericShaderAssign
+    {
+        public string ShaderModel = "";
+        public string ShaderArchive = "";
+
+        public Dictionary<string, string> options = new Dictionary<string, string>();
+        public Dictionary<string, string> samplers = new Dictionary<string, string>();
+        public Dictionary<string, string> attributes = new Dictionary<string, string>();
+    }
     public class STGenericMaterial : TreeNodeCustom
     {
         public List<STGenericMatTexture> TextureMaps = new List<STGenericMatTexture>();
@@ -20,6 +30,11 @@ namespace Toolbox.Library
         virtual public List<STGenericRenderInfo> GetRenderInfo()
         {
             return new List<STGenericRenderInfo>();
+        }
+
+        virtual public STGenericShaderAssign GetShaderAssign()
+        {
+            return null;
         }
         public override void OnClick(TreeView treeView)
         {

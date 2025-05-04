@@ -154,7 +154,7 @@ namespace Toolbox
         private void ReloadFiles()
         {
             SupportedFormats = FileManager.GetFileFormats();
-            FileMenuExtensions = FileManager.GetMenuExtensions(); 
+            FileMenuExtensions = FileManager.GetMenuExtensions();
         }
 
         static void MyHandler(object sender, UnhandledExceptionEventArgs args)
@@ -229,11 +229,13 @@ namespace Toolbox
 
         #region OpenFile
 
-        private void openToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             OpenFileSelect();
         }
 
-        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void openFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             FolderSelectDialog dlg = new FolderSelectDialog();
             if (dlg.ShowDialog() == DialogResult.OK)
             {
@@ -405,7 +407,7 @@ namespace Toolbox
 
                     if (ActiveMdiChild is IFIleEditor)
                     {
-                       // if (((IFIleEditor)ActiveMdiChild).GetFileFormats().Count > 0)
+                        // if (((IFIleEditor)ActiveMdiChild).GetFileFormats().Count > 0)
                         //    ((IFIleEditor)ActiveMdiChild).BeforeFileSaved();
                     }
 
@@ -692,8 +694,8 @@ namespace Toolbox
                     RegisterMenuExtIndex(toolsToolStripMenuItem, ext.ToolsMenuExtensions);
                 if (ext.TitleBarExtensions != null)
                     RegisterMenuExtIndex(menuStrip1, ext.TitleBarExtensions, menuStrip1.Items.Count);
-             //   if (ext.MapEditorMenuExtensions != null)
-               //     RegisterMenuExtIndex(mapEditorsToolStripMenuItem, ext.MapEditorMenuExtensions, mapEditorsToolStripMenuItem.DropDownItems.Count);
+                //   if (ext.MapEditorMenuExtensions != null)
+                //     RegisterMenuExtIndex(mapEditorsToolStripMenuItem, ext.MapEditorMenuExtensions, mapEditorsToolStripMenuItem.DropDownItems.Count);
             }
         }
 
@@ -719,7 +721,7 @@ namespace Toolbox
         {
             foreach (var i in list)
             {
-                  target.Items.Insert(index++, i);
+                target.Items.Insert(index++, i);
             }
         }
         void RegisterMenuExtIndex(ToolStripMenuItem target, STToolStripItem[] list, int index = 0)
@@ -756,7 +758,7 @@ namespace Toolbox
         }
 
 
-        void MergeDuplicateMenus(STToolStripItem src, STToolStripItem dest )
+        void MergeDuplicateMenus(STToolStripItem src, STToolStripItem dest)
         {
             dest.DropDownItems.AddRange(src.DropDownItems);
         }
@@ -902,7 +904,7 @@ namespace Toolbox
                 e.SuppressKeyPress = true;
                 SaveActiveFile(true);
             }
-            else if(e.Control && e.KeyCode == Keys.S) // Ctrl + S Save
+            else if (e.Control && e.KeyCode == Keys.S) // Ctrl + S Save
             {
                 e.SuppressKeyPress = true;
                 SaveActiveFile(false);
@@ -914,15 +916,18 @@ namespace Toolbox
             }
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             SaveActiveFile();
         }
 
-        private void saveToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             SaveActiveFile(false);
         }
 
-        private void saveToolStripButton_Click(object sender, EventArgs e) {
+        private void saveToolStripButton_Click(object sender, EventArgs e)
+        {
             SaveActiveFile(false);
         }
 
@@ -1165,8 +1170,10 @@ namespace Toolbox
                         {
                             tabForms.SelectedIndex = tpIndex;
 
-                            if (ActiveMdiChild is STForm) {
-                                if (ActiveMdiChild.WindowState == FormWindowState.Maximized) {
+                            if (ActiveMdiChild is STForm)
+                            {
+                                if (ActiveMdiChild.WindowState == FormWindowState.Maximized)
+                                {
                                     ((STForm)ActiveMdiChild).MDIMaximized();
                                 }
                             }
@@ -1249,7 +1256,7 @@ namespace Toolbox
 
         private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-  
+
         }
 
         private void BtnMinMax_Click(object sender, EventArgs e)
@@ -1282,35 +1289,35 @@ namespace Toolbox
 
         }
 
-            private void BtnMdiClose_MouseEnter(object sender, System.EventArgs e)
-            {
-                BtnMdiClose.Image = Toolbox.Library.Properties.Resources.Close_Hover;
-            }
+        private void BtnMdiClose_MouseEnter(object sender, System.EventArgs e)
+        {
+            BtnMdiClose.Image = Toolbox.Library.Properties.Resources.Close_Hover;
+        }
 
-            private void BtnMdiClose_MouseLeave(object sender, System.EventArgs e)
-            {
-                BtnMdiClose.Image = Toolbox.Library.Properties.Resources.Close;
-            }
+        private void BtnMdiClose_MouseLeave(object sender, System.EventArgs e)
+        {
+            BtnMdiClose.Image = Toolbox.Library.Properties.Resources.Close;
+        }
 
-            private void BtnMdiMinMax_MouseEnter(object sender, EventArgs e)
-            {
-                BtnMdiMinMax.Image = Toolbox.Library.Properties.Resources.maximize_sele;
-            }
+        private void BtnMdiMinMax_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMdiMinMax.Image = Toolbox.Library.Properties.Resources.maximize_sele;
+        }
 
-            private void BtnMdiMinMax_MouseLeave(object sender, EventArgs e)
-            {
-                BtnMdiMinMax.Image = Toolbox.Library.Properties.Resources.maximize;
-            }
+        private void BtnMdiMinMax_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMdiMinMax.Image = Toolbox.Library.Properties.Resources.maximize;
+        }
 
-            private void BtnMdiMinimize_MouseEnter(object sender, EventArgs e)
-            {
-                BtnMdiMinimize.Image = Toolbox.Library.Properties.Resources.minimize_sele;
-            }
+        private void BtnMdiMinimize_MouseEnter(object sender, EventArgs e)
+        {
+            BtnMdiMinimize.Image = Toolbox.Library.Properties.Resources.minimize_sele;
+        }
 
-            private void BtnMdiMinimize_MouseLeave(object sender, EventArgs e)
-            {
-                BtnMdiMinimize.Image = Toolbox.Library.Properties.Resources.minimize;
-            }
+        private void BtnMdiMinimize_MouseLeave(object sender, EventArgs e)
+        {
+            BtnMdiMinimize.Image = Toolbox.Library.Properties.Resources.minimize;
+        }
 
         private void BtnMdiClose_Click(object sender, EventArgs e)
         {
@@ -1339,7 +1346,8 @@ namespace Toolbox
                 ActiveMdiChild.WindowState = FormWindowState.Minimized;
         }
 
-        private void updateToolstrip_Click(object sender, EventArgs e) {
+        private void updateToolstrip_Click(object sender, EventArgs e)
+        {
             UpdateNotifcationClick();
         }
 
@@ -1374,15 +1382,18 @@ namespace Toolbox
             System.Diagnostics.Process.Start("https://github.com/KillzXGaming/Switch-Toolbox");
         }
 
-        private void reportBugToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void reportBugToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://github.com/KillzXGaming/Switch-Toolbox/issues");
         }
 
-        private void requestFeatureToolStripMenuItem1_Click(object sender, EventArgs e) {
+        private void requestFeatureToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://github.com/KillzXGaming/Switch-Toolbox/issues");
         }
 
-        private void tutorialToolStripMenuItem_Click(object sender, EventArgs e) {
+        private void tutorialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             System.Diagnostics.Process.Start("https://github.com/KillzXGaming/Switch-Toolbox/wiki");
         }
 
@@ -1392,7 +1403,8 @@ namespace Toolbox
 
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e) {
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
             if (tabForms.TabPages.Count > 0)
             {
                 if (Runtime.ShowCloseDialog)
@@ -1430,7 +1442,8 @@ namespace Toolbox
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 FolderSelectDialog folderDlg = new FolderSelectDialog();
-                if (folderDlg.ShowDialog() == DialogResult.OK) {
+                if (folderDlg.ShowDialog() == DialogResult.OK)
+                {
                     BatchExportTextures(ofd.FileNames, folderDlg.SelectedPath);
                 }
             }
@@ -1445,7 +1458,8 @@ namespace Toolbox
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 FolderSelectDialog folderDlg = new FolderSelectDialog();
-                if (folderDlg.ShowDialog() == DialogResult.OK) {
+                if (folderDlg.ShowDialog() == DialogResult.OK)
+                {
                     BatchExportModels(ofd.FileNames, folderDlg.SelectedPath);
                 }
             }
@@ -1504,7 +1518,7 @@ namespace Toolbox
 
                     string parentName = foundNode.FullPath.Split('\\')[0];
                     string sourcePath = Path.Combine(sfd.SelectedPath, parentName + ".bfres");
-                    
+
                     // Skip if no path found
                     if (!Directory.Exists(sourcePath))
                     {
@@ -1584,27 +1598,11 @@ namespace Toolbox
             List<string> Formats = new List<string>();
             Formats.Add("DAE (.dae)");
 
-            failedFiles = new List<string>();
-
             BatchFormatExport form = new BatchFormatExport(Formats);
             if (form.ShowDialog() == DialogResult.OK)
             {
                 string extension = form.GetSelectedExtension();
-                foreach (var file in files)
-                {
-                    IFileFormat fileFormat = null;
-                    try
-                    {
-                        fileFormat = STFileLoader.OpenFileFormat(file);
-                    }
-                    catch (Exception ex)
-                    {
-                        failedFiles.Add($"{file} \n Error:\n {ex} \n");
-                    }
-
-                    SearchFileFormat(form.BatchSettings, fileFormat, extension, outputFolder, ExportMode.AC);
-                }
-                batchExportFileList.Clear();
+                BatchExportACWithSettings(files,outputFolder, form.BatchSettings,extension);
             }
             else
                 return;
@@ -1619,6 +1617,28 @@ namespace Toolbox
             }
             else
                 MessageBox.Show("Files batched successfully!");
+        }
+        
+        private void BatchExportACWithSettings(string[] files, string outputFolder, BatchFormatExport.Settings batchSettings, string extension)
+        {
+
+            foreach (var file in files)
+            {
+                IFileFormat fileFormat = null;
+                try
+                {
+                    fileFormat = STFileLoader.OpenFileFormat(file);
+                }
+                catch (Exception ex)
+                {
+                    failedFiles.Add($"{file} \n Error:\n {ex} \n");
+                }
+
+                SearchFileFormat(batchSettings, fileFormat, extension, outputFolder, ExportMode.AC);
+            }
+            batchExportFileList.Clear();
+
+            
         }
         private void BatchExportModels(string[] files, string outputFolder)
         {
@@ -1672,7 +1692,7 @@ namespace Toolbox
             Formats.Add("Tagged Image File Format (.tiff)");
             Formats.Add("ASTC (.astc)");
 
-           failedFiles = new List<string>();
+            failedFiles = new List<string>();
 
             BatchFormatExport form = new BatchFormatExport(Formats);
             if (form.ShowDialog() == DialogResult.OK)
@@ -1683,7 +1703,7 @@ namespace Toolbox
                     IFileFormat fileFormat = null;
                     try
                     {
-                         fileFormat = STFileLoader.OpenFileFormat(file);
+                        fileFormat = STFileLoader.OpenFileFormat(file);
                     }
                     catch (Exception ex)
                     {
@@ -1707,12 +1727,13 @@ namespace Toolbox
                 MessageBox.Show("Files batched successfully!");
         }
 
-        private void SearchFileFormat(BatchFormatExport.Settings settings, IFileFormat fileFormat, 
+        private void SearchFileFormat(BatchFormatExport.Settings settings, IFileFormat fileFormat,
             string extension, string outputFolder, ExportMode exportMode)
         {
             if (fileFormat == null) return;
 
-            if (fileFormat is STGenericTexture && exportMode == ExportMode.Textures) {
+            if (fileFormat is STGenericTexture && exportMode == ExportMode.Textures)
+            {
                 string name = ((STGenericTexture)fileFormat).Text;
                 ExportTexture(((STGenericTexture)fileFormat), settings, $"{outputFolder}/{name}", extension);
             }
@@ -1730,7 +1751,8 @@ namespace Toolbox
                         Directory.CreateDirectory(outputFolder);
                 }
 
-                foreach (STGenericTexture tex in ((ITextureContainer)fileFormat).TextureList) {
+                foreach (STGenericTexture tex in ((ITextureContainer)fileFormat).TextureList)
+                {
                     ExportTexture(tex, settings, $"{outputFolder}/{tex.Text}", extension);
                 }
             }
@@ -1781,7 +1803,8 @@ namespace Toolbox
                 batchExportFileList.Add(path);
 
                 DAE.Export($"{path}.{extension}", daesettings, model, textures, skeleton);
-            }else if( (fileFormat is ITextureContainer || fileFormat is IExportableModel) && exportMode == ExportMode.AC)
+            }
+            else if ((fileFormat is ITextureContainer || fileFormat is IExportableModel) && exportMode == ExportMode.AC)
             {
                 string name = fileFormat.FileName.Split('.').FirstOrDefault();
                 if (settings.SeperateTextureContainers)
@@ -1798,7 +1821,7 @@ namespace Toolbox
                 daesettings.SuppressConfirmDialog = true;
                 daesettings.ExportTextures = settings.ExportTextures;
 
- 
+
                 if (models.Count > 0)
                 {
                     STSkeleton skeleton = null;
@@ -1814,23 +1837,25 @@ namespace Toolbox
                     }
 
                     //TODO: temp use the last skeleton 
-                    if(animations.Count > 0)
+                    if (animations.Count > 0)
                     {
                         //log every animation name
                         foreach (var animation in animations)
                         {
                             ((STGenericWrapper)animation).Export($"{outputFolder}/{animation.Text}.smd");
-                        } 
-                        
+                        }
+
                     }
-                }else
-                {   
+                }
+                else
+                {
                     //export textures only
-                    foreach (STGenericTexture tex in ((ITextureContainer)fileFormat).TextureList) {
+                    foreach (STGenericTexture tex in ((ITextureContainer)fileFormat).TextureList)
+                    {
                         ExportTexture(tex, settings, $"{outputFolder}/{tex.Text}", "png");
                     }
                 }
-                
+
             }
 
             fileFormat.Unload();
@@ -1844,7 +1869,8 @@ namespace Toolbox
         }
 
 
-        private void ExportTexture(STGenericTexture tex, BatchFormatExport.Settings settings, string filePath, string ext) {
+        private void ExportTexture(STGenericTexture tex, BatchFormatExport.Settings settings, string filePath, string ext)
+        {
             filePath = Utils.RenameDuplicateString(batchExportFileList, filePath, 0, 3);
             batchExportFileList.Add(filePath);
 
@@ -1901,6 +1927,68 @@ namespace Toolbox
                 if (folderDlg.ShowDialog() == DialogResult.OK)
                 {
                     BatchExportAC(ofd.FileNames, folderDlg.SelectedPath);
+                }
+            }
+        }
+
+        private void batchExportACFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FolderSelectDialog srcFolderDlg = new FolderSelectDialog();
+            if (srcFolderDlg.ShowDialog() == DialogResult.OK)
+            {
+                FolderSelectDialog targetFolderDlg = new FolderSelectDialog();
+                if (targetFolderDlg.ShowDialog() == DialogResult.OK)
+                {
+                    string srcFolder = srcFolderDlg.SelectedPath;
+                    string targetFolder = targetFolderDlg.SelectedPath;
+
+                    failedFiles = new List<string>();
+
+                    //
+                    // 获取源目录下的所有子目录
+                    string[] allSubdirectories = Directory.GetDirectories(srcFolder, "*", SearchOption.AllDirectories);
+
+                    List<string> targetSubdirectories = new List<string>();
+                    List<string> sourceSubdirectories = new List<string>();
+
+                    foreach (var directory in allSubdirectories)
+                    {
+                        string newDirPath = Path.Combine(targetFolder, directory.Replace(srcFolder + "\\", ""));
+                        targetSubdirectories.Add(newDirPath);
+                        sourceSubdirectories.Add(directory);
+                        
+                    }
+
+                    List<string> Formats = new List<string>();
+                    Formats.Add("DAE (.dae)");
+
+                    BatchFormatExport form = new BatchFormatExport(Formats);
+
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        for (int i = 0; i < sourceSubdirectories.Count; ++i)
+                        {
+                            string[] filesInSubdirectory = Directory.GetFiles(sourceSubdirectories[i]);
+                            if (!Directory.Exists(targetSubdirectories[i]))
+                            {
+                                Directory.CreateDirectory(targetSubdirectories[i]);
+                            }
+
+                            BatchExportACWithSettings(filesInSubdirectory, targetSubdirectories[i],form.BatchSettings,form.GetSelectedExtension());
+                        }
+                    }
+
+                    if (failedFiles.Count > 0)
+                    {
+                        string detailList = "";
+                        foreach (var file in failedFiles)
+                            detailList += $"{file}\n";
+
+                        STErrorDialog.Show("Some files failed to export! See detail list of failed files.", "Switch Toolbox", detailList);
+                    }
+                    else
+                        MessageBox.Show("Files batched successfully!");
+
                 }
             }
         }

@@ -482,6 +482,17 @@ namespace Bfres.Structs
             return list;
         }
 
+        override public STGenericShaderAssign GetShaderAssign()
+        {
+            var stShaderAssign = new STGenericShaderAssign();
+            stShaderAssign.ShaderModel = shaderassign.ShaderModel;
+            stShaderAssign.ShaderArchive = shaderassign.ShaderArchive;
+            stShaderAssign.options = shaderassign.options;
+            stShaderAssign.samplers = shaderassign.samplers;
+            stShaderAssign.attributes = shaderassign.attributes;
+            return stShaderAssign;
+        }
+
         public class ShaderAssign
         {
             public string ShaderModel = "";

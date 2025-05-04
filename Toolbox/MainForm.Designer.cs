@@ -52,6 +52,7 @@
             this.batchReplaceFTPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchReplaceTXTGToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchRenameBNTXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchExportACToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.experimentalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cascadeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -81,7 +82,7 @@
             this.stToolStrip1 = new Toolbox.Library.Forms.STToolStrip();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.updateToolstrip = new System.Windows.Forms.ToolStripButton();
-            this.batchExportACToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.batchExportACFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.stPanel1.SuspendLayout();
             this.tabControlContextMenuStrip.SuspendLayout();
@@ -218,7 +219,8 @@
             this.batchReplaceFTPToolStripMenuItem,
             this.batchReplaceTXTGToolStripMenuItem,
             this.batchRenameBNTXToolStripMenuItem,
-            this.batchExportACToolStripMenuItem});
+            this.batchExportACToolStripMenuItem,
+            this.batchExportACFolderToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(89, 21);
             this.toolsToolStripMenuItem.Text = "Tools";
@@ -278,6 +280,13 @@
             this.batchRenameBNTXToolStripMenuItem.Text = "Batch Rename BNTX from Filename";
             this.batchRenameBNTXToolStripMenuItem.Click += new System.EventHandler(this.batchRenameBNTXToolStripMenuItem_Click);
             // 
+            // batchExportACToolStripMenuItem
+            // 
+            this.batchExportACToolStripMenuItem.Name = "batchExportACToolStripMenuItem";
+            this.batchExportACToolStripMenuItem.Size = new System.Drawing.Size(634, 44);
+            this.batchExportACToolStripMenuItem.Text = "Batch Export AC";
+            this.batchExportACToolStripMenuItem.Click += new System.EventHandler(this.batchExportACToolStripMenuItem_Click);
+            // 
             // experimentalToolStripMenuItem
             // 
             this.experimentalToolStripMenuItem.Name = "experimentalToolStripMenuItem";
@@ -298,35 +307,35 @@
             // cascadeToolStripMenuItem
             // 
             this.cascadeToolStripMenuItem.Name = "cascadeToolStripMenuItem";
-            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(249, 44);
+            this.cascadeToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.cascadeToolStripMenuItem.Text = "Cascade";
             this.cascadeToolStripMenuItem.Click += new System.EventHandler(this.cascadeToolStripMenuItem_Click);
             // 
             // minimizeToolStripMenuItem
             // 
             this.minimizeToolStripMenuItem.Name = "minimizeToolStripMenuItem";
-            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(249, 44);
+            this.minimizeToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.minimizeToolStripMenuItem.Text = "Minimize";
             this.minimizeToolStripMenuItem.Click += new System.EventHandler(this.minimizeToolStripMenuItem_Click);
             // 
             // maximizeToolStripMenuItem
             // 
             this.maximizeToolStripMenuItem.Name = "maximizeToolStripMenuItem";
-            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(249, 44);
+            this.maximizeToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.maximizeToolStripMenuItem.Text = "Maximize";
             this.maximizeToolStripMenuItem.Click += new System.EventHandler(this.maximizeToolStripMenuItem_Click);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(249, 44);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
             // closeAllToolStripMenuItem
             // 
             this.closeAllToolStripMenuItem.Name = "closeAllToolStripMenuItem";
-            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(249, 44);
+            this.closeAllToolStripMenuItem.Size = new System.Drawing.Size(359, 44);
             this.closeAllToolStripMenuItem.Text = "Close All";
             this.closeAllToolStripMenuItem.Click += new System.EventHandler(this.closeAllToolStripMenuItem_Click);
             // 
@@ -549,12 +558,12 @@
             this.updateToolstrip.ToolTipText = "Update Tool";
             this.updateToolstrip.Click += new System.EventHandler(this.updateToolstrip_Click);
             // 
-            // batchExportACToolStripMenuItem
+            // batchExportACFolderToolStripMenuItem
             // 
-            this.batchExportACToolStripMenuItem.Name = "batchExportACToolStripMenuItem";
-            this.batchExportACToolStripMenuItem.Size = new System.Drawing.Size(634, 44);
-            this.batchExportACToolStripMenuItem.Text = "Batch Export AC";
-            this.batchExportACToolStripMenuItem.Click += new System.EventHandler(this.batchExportACToolStripMenuItem_Click);
+            this.batchExportACFolderToolStripMenuItem.Name = "batchExportACFolderToolStripMenuItem";
+            this.batchExportACFolderToolStripMenuItem.Size = new System.Drawing.Size(634, 44);
+            this.batchExportACFolderToolStripMenuItem.Text = "Batch Export AC Folder";
+            this.batchExportACFolderToolStripMenuItem.Click += new System.EventHandler(this.batchExportACFolderToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -645,6 +654,7 @@
         private System.Windows.Forms.ToolStripMenuItem openUserFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearAllFilesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem batchExportACToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem batchExportACFolderToolStripMenuItem;
     }
 }
 
