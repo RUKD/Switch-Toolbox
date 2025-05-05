@@ -1888,7 +1888,16 @@ namespace Toolbox
         {
             string ArchiveFilePath = outputFolder;
             if (settings.SeperateArchiveFiles)
-                ArchiveFilePath = Path.Combine(outputFolder, Path.GetFileNameWithoutExtension(((IFileFormat)archiveFile).FileName));
+            {
+                string filename = Path.GetFileNameWithoutExtension(((IFileFormat)archiveFile).FileName);
+                //remove ".Nin_NX_NVN"
+                if(filename.Contains(".Nin_NX_NVN"))
+                {
+                    filename = filename.Substring(0,filename.Length - 11);
+                }
+                ArchiveFilePath = Path.Combine(outputFolder, filename);
+            }
+                
 
             foreach (var file in archiveFile.Files)
             {
