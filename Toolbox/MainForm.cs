@@ -1958,41 +1958,50 @@ namespace Toolbox
                     // 获取源目录下的所有子目录
                     string[] allSubdirectories = Directory.GetDirectories(srcFolder, "*", SearchOption.AllDirectories);
 
-                    List<string> targetSubdirectories = new List<string>();
-                    List<string> sourceSubdirectories = new List<string>();
+                    List<string> targetDirectories = new List<string>();
+                    List<string> sourceDirectories = new List<string>();
+                    
+                    targetDirectories.Add(targetFolder);
+                    sourceDirectories.Add(srcFolder);
 
                     foreach (var directory in allSubdirectories)
                     {
                         string newDirPath = Path.Combine(targetFolder, directory.Replace(srcFolder + "\\", ""));
-                        targetSubdirectories.Add(newDirPath);
-                        sourceSubdirectories.Add(directory);
+                        targetDirectories.Add(newDirPath);
+                        sourceDirectories.Add(directory);
                         
                     }
 
                     List<string> Formats = new List<string>();
                     Formats.Add("DAE (.dae)");
 
-                    BatchFormatExport form = new BatchFormatExport(Formats);
+                    //set default texture containers to false, no output folder generate
+                    BatchFormatExport.Settings settings = new BatchFormatExport.Settings() 
+                    { SeperateTextureContainers = false, SeperateArchiveFiles = true, UseTextureChannelComponents = true, ExportTextures = true};
+
+                    BatchFormatExport form = new BatchFormatExport(Formats,settings);
+                    
+                    
 
                     if (form.ShowDialog() == DialogResult.OK)
                     {
                         // 创建进度条窗体
                         ProgressForm progressForm = new ProgressForm();
-                        progressForm.TotalSteps = sourceSubdirectories.Count;
+                        progressForm.TotalSteps = sourceDirectories.Count;
                         progressForm.Show();
 
-                        for (int i = 0; i < sourceSubdirectories.Count; ++i)
+                        for (int i = 0; i < sourceDirectories.Count; ++i)
                         {
                             // 更新进度条
-                            progressForm.UpdateProgress(i + 1, $"正在处理: {Path.GetFileName(sourceSubdirectories[i])}");
+                            progressForm.UpdateProgress(i + 1, $"正在处理: {Path.GetFileName(sourceDirectories[i])}");
                             
-                            string[] filesInSubdirectory = Directory.GetFiles(sourceSubdirectories[i]);
-                            if (!Directory.Exists(targetSubdirectories[i]))
+                            string[] filesInSubdirectory = Directory.GetFiles(sourceDirectories[i]);
+                            if (!Directory.Exists(targetDirectories[i]))
                             {
-                                Directory.CreateDirectory(targetSubdirectories[i]);
+                                Directory.CreateDirectory(targetDirectories[i]);
                             }
 
-                            BatchExportACWithSettings(filesInSubdirectory, targetSubdirectories[i],form.BatchSettings,form.GetSelectedExtension());
+                            BatchExportACWithSettings(filesInSubdirectory, targetDirectories[i],form.BatchSettings,form.GetSelectedExtension());
                         }
 
                         string totalTime = progressForm.GetTotalTime();

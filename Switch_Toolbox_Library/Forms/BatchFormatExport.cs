@@ -25,7 +25,7 @@ namespace Toolbox.Library
             public bool ExportTextures;
         }
 
-        public BatchFormatExport(List<string> Formats)
+        public BatchFormatExport(List<string> Formats,Settings settings = null)
         {
             InitializeComponent();
 
@@ -38,7 +38,15 @@ namespace Toolbox.Library
             ForeColor = FormThemes.BaseTheme.FormForeColor;
 
             Index = 0;
+            if(settings != null)
+            {
+                chkSeperateTextureContainers.Checked = settings.SeperateTextureContainers;
+                chkSeperateArchives.Checked = settings.SeperateArchiveFiles;
+                chkChannelComponents.Checked = settings.UseTextureChannelComponents;
+                chkExportTextures.Checked = settings.ExportTextures;
+            }
         }
+            
 
         public string GetSelectedExtension()
         {
