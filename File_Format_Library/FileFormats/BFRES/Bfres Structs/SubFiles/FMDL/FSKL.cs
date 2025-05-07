@@ -93,6 +93,7 @@ namespace Bfres.Structs
         public void AddBone(Bone bone)
         {
             node.Skeleton.Bones.Add(bone);
+            node.Skeleton.BoneDict.Add(bone.Name);
         }
 
         public void AddBone(ResU.Bone bone)
@@ -380,11 +381,11 @@ namespace Bfres.Structs
                     }
                     else
                     {
-                        var indices = this.SkeletonU.MatrixToBoneList;
+                        var indices = this.Skeleton.MatrixToBoneList;
 
                         Skeleton = new Skeleton();
                         Skeleton.Import(FileName);
-                        SkeletonU.MatrixToBoneList = indices;
+                        Skeleton.MatrixToBoneList = indices;
 
                         Nodes.Clear();
                         fskl.bones.Clear();
@@ -677,11 +678,35 @@ namespace Bfres.Structs
             }
             else
             {
+                var Skeleton = ((FSKL)skeletonParent).node.Skeleton;
+
+                if(Skeleton.BoneDict.ContainsKey(Name))
+                {
+                    MessageBox.Show("A bone with the same name exits! Make sure to use a unique name!",
+                        "Bone Rename", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    return;
+                }
+
                 Bone.Name = Name;
                 Text = Name;
                 BoneName = Name;
+
+                UpdateBoneKeysSwitch(Skeleton.Bones);
             }
         }
+
+        private void UpdateBoneKeysSwitch(IList<Bone> bones)
+        {
+            var Skeleton = ((FSKL)skeletonParent).node.Skeleton;
+
+            Skeleton.BoneDict.Clear();
+            for(int i = 0 ; i < bones.Count; i++)
+            {
+                Skeleton.BoneDict.Add(bones[i].Name);
+            }
+        }
+            
 
         private void UpdateBoneKeys(List<ResU.Bone> bones)
         {
