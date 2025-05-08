@@ -296,6 +296,9 @@ namespace Toolbox.Library.Animations
             {
                 file.WriteLine("version 1");
 
+                //write loop flag
+                file.WriteLine("loop " + (anim.Loop ? "true" : "false"));
+
                 file.WriteLine("nodes");
                 foreach (STBone b in Skeleton.bones)
                 {
@@ -326,8 +329,11 @@ namespace Toolbox.Library.Animations
                         object rx = b.HasRot ? (object)eul.X : "None";
                         object ry = b.HasRot ? (object)eul.Y : "None";
                         object rz = b.HasRot ? (object)eul.Z : "None";
+                        object sx = b.HasScale ? (object)scale.X : "None";
+                        object sy = b.HasScale ? (object)scale.Y : "None";
+                        object sz = b.HasScale ? (object)scale.Z : "None";
 
-                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {tx} {ty} {tz} {rx} {ry} {rz}");
+                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {tx} {ty} {tz} {rx} {ry} {rz} {sx} {sy} {sz}");
                     }
 
                 }
@@ -344,6 +350,8 @@ namespace Toolbox.Library.Animations
             using (System.IO.StreamWriter file = new System.IO.StreamWriter(@Fname))
             {
                 file.WriteLine("version 1");
+
+                file.WriteLine("loop " + (anim.CanLoop ? "true" : "false"));
 
                 file.WriteLine("nodes");
                 foreach (STBone b in Skeleton.bones)
@@ -375,8 +383,11 @@ namespace Toolbox.Library.Animations
                         object rx = b.HasRot ? (object)eul.X : "None";
                         object ry = b.HasRot ? (object)eul.Y : "None";
                         object rz = b.HasRot ? (object)eul.Z : "None";
+                        object sx = b.HasScale ? (object)scale.X : "None";
+                        object sy = b.HasScale ? (object)scale.Y : "None";
+                        object sz = b.HasScale ? (object)scale.Z : "None";
 
-                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {tx} {ty} {tz} {rx} {ry} {rz}");
+                        file.WriteLine($"{ Skeleton.bones.IndexOf(b)} {tx} {ty} {tz} {rx} {ry} {rz} {sx} {sy} {sz}");
                     }
 
                 }
