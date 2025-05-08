@@ -806,8 +806,10 @@ namespace Bfres.Structs
         {
             BfresBone bn = new BfresBone(skeletonParent);
 
+            
             if (BoneU != null)
             {
+                //TODO: handle boneU
                 BoneU = new ResU.Bone();
                 BoneU.Name = CheckDuplicateBoneNames("NewBone");
 
@@ -820,15 +822,15 @@ namespace Bfres.Structs
             }
             else
             {
-                Bone = new Bone();
-                Bone.Name = CheckDuplicateBoneNames("NewBone");
+                Bone bone = new Bone();
+                bone.Name = CheckDuplicateBoneNames("NewBone");
 
-                BfresSwitch.ReadBone(bn, Bone, false);
+                BfresSwitch.ReadBone(bn, bone, false);
                 Nodes.Add(bn);
                 skeletonParent.bones.Add(bn);
 
-                Bone.ParentIndex = (short)bn.parentIndex;
-                ((FSKL)skeletonParent).AddBone(Bone);
+                bone.ParentIndex = (short)bn.parentIndex;
+                ((FSKL)skeletonParent).AddBone(bone);
             }
         }
 
