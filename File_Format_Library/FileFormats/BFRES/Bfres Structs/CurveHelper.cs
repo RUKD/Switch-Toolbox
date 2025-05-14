@@ -304,6 +304,7 @@ namespace Bfres.Structs
                                 Value = value,
                                 In = slopes[0],
                                 Out = slopes[1],
+                                IsKeyed = true,
                             });
                         }
                         break;
@@ -317,6 +318,7 @@ namespace Bfres.Structs
                                 Frame = frame,
                                 Value = value,
                                 Delta = delta,
+                                IsKeyed = true,
                             });
                         }
                         break;
@@ -327,6 +329,7 @@ namespace Bfres.Structs
                             {
                                 Frame = frame,
                                 Value = curve.KeyStepBoolData[i] ? 1 : 0,
+                                IsKeyed = true,
                             });
                         }
                         break;
@@ -341,6 +344,7 @@ namespace Bfres.Structs
                             {
                                 Frame = frame,
                                 Value = value,
+                                IsKeyed = true,
                             });
                         }
                         break;

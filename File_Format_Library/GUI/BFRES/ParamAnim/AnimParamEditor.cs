@@ -88,7 +88,7 @@ namespace FirstPlugin.Forms
 
                         foreach (var track in paramAnim.Values)
                         {
-                            var keyFrame = track.GetKeyFrame(Frame, false);
+                            var keyFrame = track.GetKey(Frame);
 
                             if (keyFrame != null)
                             {
@@ -120,7 +120,7 @@ namespace FirstPlugin.Forms
 
                         foreach (var track in paramAnim.Values)
                         {
-                            var keyFrame = track.GetKeyFrame(Frame);
+                            var keyFrame = track.GetKey(Frame);
 
                             if (keyFrame != null)
                                 item1.SubItems.Add(keyFrame.Value.ToString());
@@ -137,7 +137,7 @@ namespace FirstPlugin.Forms
         {
             foreach (var track in paramKeyGroup.Values)
             {
-                if (track.GetKeyFrame(Frame, false) != null && track.GetKeyFrame(Frame).IsKeyed == true)
+                if (track.GetKey(Frame) != null)
                     return true;
             }
 
