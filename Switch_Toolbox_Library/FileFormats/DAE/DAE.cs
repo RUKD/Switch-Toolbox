@@ -64,6 +64,7 @@ namespace Toolbox.Library
         {
             public Dictionary<string, string> RenderInfos =new Dictionary<string, string>();
             public STGenericShaderAssign ShaderAssign = null;
+            public STGenericMaterialParams MaterialParams = null;
         }
 
         static private void ExportMaterialInfo(STGenericMaterial material, string outputFolder)
@@ -74,6 +75,7 @@ namespace Toolbox.Library
                 MatInfo matinfo = new MatInfo();
                 var renderInfos = material.GetRenderInfo();
                 matinfo.ShaderAssign = material.GetShaderAssign();
+                matinfo.MaterialParams = material.GetMaterialParams();
                 foreach (var renderInfo in renderInfos)
                 {
                     matinfo.RenderInfos[renderInfo.Name] = renderInfo.Value;

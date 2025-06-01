@@ -482,6 +482,59 @@ namespace Bfres.Structs
             return list;
         }
 
+        override public STGenericMaterialParams GetMaterialParams()
+        {
+            var matParams = new STGenericMaterialParams();
+            matParams.Name = Text;
+            matParams.parameters = new Dictionary<string, string>();
+            matParams.textures = new Dictionary<string, string>();
+            //fill parameters
+            foreach (var param in matparam)
+            {
+                string Values = "";
+
+                switch (param.Value.Type)
+                {
+
+                    case ShaderParamType.Float:
+                        Values = $"{param.Value.ValueFloat[0]}";
+                        break;
+                    case ShaderParamType.Float2:
+                        Values = $"{param.Value.ValueFloat[0]}," +
+                                 $"{param.Value.ValueFloat[1]}";
+                        break;
+                    case ShaderParamType.Float3:
+                        Values = $"{param.Value.ValueFloat[0]}," +
+                                 $"{param.Value.ValueFloat[1]}," +
+                                 $"{param.Value.ValueFloat[2]}";
+                        break;
+                    case ShaderParamType.Float4:
+                        Values = $"{param.Value.ValueFloat[0]}," +
+                                 $"{param.Value.ValueFloat[1]}," +
+                                 $"{param.Value.ValueFloat[2]}," +
+                                 $"{param.Value.ValueFloat[3]}";
+                        break;
+                    case ShaderParamType.TexSrt:
+                        Values = $"{param.Value.ValueTexSrt.Mode}," +
+                                 $"{param.Value.ValueTexSrt.Scaling.X}," +
+                                 $"{param.Value.ValueTexSrt.Scaling.Y}," +
+                                 $"{param.Value.ValueTexSrt.Rotation}," +
+                                 $"{param.Value.ValueTexSrt.Translation.X}," +
+                                 $"{param.Value.ValueTexSrt.Translation.Y}";
+                        break;
+                }
+                matParams.parameters.Add(param.Key, Values);
+            }
+
+            //fill textures
+            foreach (var tex in TextureMaps)
+            {
+                matParams.textures.Add(tex.SamplerName, tex.Name);
+            }
+
+            return matParams;
+        }
+
         override public STGenericShaderAssign GetShaderAssign()
         {
             var stShaderAssign = new STGenericShaderAssign();

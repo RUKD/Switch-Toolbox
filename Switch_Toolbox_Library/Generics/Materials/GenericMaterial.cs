@@ -22,6 +22,13 @@ namespace Toolbox.Library
         public Dictionary<string, string> samplers = new Dictionary<string, string>();
         public Dictionary<string, string> attributes = new Dictionary<string, string>();
     }
+
+    public class STGenericMaterialParams
+    {
+        public string Name { get; set;}
+        public Dictionary<string,string> parameters = new Dictionary<string, string>();
+        public Dictionary<string,string> textures = new Dictionary<string, string>();
+    }
     public class STGenericMaterial : TreeNodeCustom
     {
         public List<STGenericMatTexture> TextureMaps = new List<STGenericMatTexture>();
@@ -33,6 +40,11 @@ namespace Toolbox.Library
         }
 
         virtual public STGenericShaderAssign GetShaderAssign()
+        {
+            return null;
+        }
+
+        virtual public STGenericMaterialParams GetMaterialParams()
         {
             return null;
         }
