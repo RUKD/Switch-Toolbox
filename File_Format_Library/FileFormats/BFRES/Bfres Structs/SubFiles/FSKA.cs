@@ -243,17 +243,83 @@ namespace Bfres.Structs
                     return render.models[0].Skeleton;
             }
 
+            //Search in other files' skeletons
+            {
+                var FileNode = Parent.Parent.Parent.Parent.TreeView.Nodes[0];
+                STSkeleton bestSkeleton = null;
+                int maxMatchScore = 0;
+                while(FileNode != null)
+                {
+                    var FirstRFRESNode = FileNode.FirstNode as BFRES;
+                    if(FirstRFRESNode == null)
+                    {
+                        continue;
+                    }
+                    var BRESRender = FirstRFRESNode.BFRESRender;
+                    if(BRESRender != null)
+                    {
+                        
+                        foreach (var model in BRESRender.models)
+                        {
+                            int matchScore = 0;
+                            foreach (var bone in Bones)
+                            {
+                                var animBone = model.Skeleton.GetBone(bone.Text);
+                                if (animBone != null)
+                                {
+                                    matchScore++;
+                                }
+                            }
+
+                            if (matchScore > maxMatchScore && model.Skeleton.bones.Count > 0)
+                            {
+                                maxMatchScore = matchScore;
+                                bestSkeleton = model.Skeleton;
+                            }
+                        }
+                    }
+                    FileNode = FileNode.NextNode;
+                }
+                if (bestSkeleton != null)
+                    return bestSkeleton;
+            }
+
+            
+
             //Search by viewport active model in the event the animation is externally loaded
             var viewport = LibraryGUI.GetActiveViewport();
             if (viewport != null)
             {
+                STSkeleton bestSkeleton = null;
+                int maxMatchScore = 0;
+
                 foreach (var drawable in viewport.scene.objects)
                 {
-                    if (drawable is STSkeleton)
-                        return ((STSkeleton)drawable);
+                    if (drawable is STSkeleton skeleton)
+                    {
+                        // Count matching bones as a score
+                        int matchScore = 0;
+                        foreach (var bone in Bones)
+                        {
+                            var animBone = skeleton.GetBone(bone.Text);
+                            if (animBone != null)
+                            {
+                                matchScore++;
+                            }
+                        }
+                        
+                        // Keep track of the skeleton with the highest match score
+                        if (matchScore > maxMatchScore && skeleton.bones.Count > 0)
+                        {
+                            maxMatchScore = matchScore;
+                            bestSkeleton = skeleton;
+                        }
+                    }
                 }
+                
+                return bestSkeleton;
             }
-
+                
             return null;
         }
 

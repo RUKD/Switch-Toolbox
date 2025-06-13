@@ -285,6 +285,20 @@ namespace Toolbox.Library.Animations
                 return k1;
             }
 
+            public KeyFrame GetKey(float frame)
+            {
+                if (Keys.Count == 0) return null;
+                foreach (KeyFrame k in Keys)
+                {
+                    if (k.Frame == frame)
+                    {
+                        return k;
+                    }
+                }
+
+                return null;
+            }
+
             public bool SetValue(float Value, int frame)
             {
                 for (int i = 0; i < Keys.Count; i++)
